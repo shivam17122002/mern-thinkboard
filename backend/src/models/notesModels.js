@@ -1,14 +1,18 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
-const notesSchema = mongoose.Schema({
+const notesSchema = new mongoose.Schema(
+  {
     title: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     content: {
-        type: Array,
-        required: true
-    }
-}, { timestamps: true })
+      type: String, // ✅ SHOULD BE STRING, not Array
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("Notes", notesSchema)
+const Notes = mongoose.model("Notes", notesSchema);
+export default Notes;

@@ -1,8 +1,12 @@
-const ratelimit = require("../config/upstash");
+import ratelimit from "../config/upstash.js";
 
-module.exports = async (req, res, next) => {
+const rateLimiter = async (req, res, next) => {
   try {
-    const ip = req.ip || "127.0.0.1";
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",")[0] ||
+      req.socket.remoteAddress ||
+      "127.0.0.1";
+
     const { success } = await ratelimit.limit(ip);
 
     if (!success) {
@@ -17,3 +21,5 @@ module.exports = async (req, res, next) => {
     next();
   }
 };
+
+export default rateLimiter;
