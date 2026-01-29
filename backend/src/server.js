@@ -8,7 +8,7 @@ const app = express();
 const connectDb = require("./config/db");
 const rateLimiter = require("./middleware/rateLimiter");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5001;
 
 connectDb();
 
