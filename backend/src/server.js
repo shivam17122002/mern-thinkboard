@@ -11,7 +11,7 @@ import rateLimiter from "./middleware/rateLimiter.js";
 import notesRoutes from "./routes/notesRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+
 
 
 const __filename = fileURLToPath(import.meta.url);
