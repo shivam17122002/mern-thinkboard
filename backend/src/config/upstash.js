@@ -13,7 +13,7 @@ try {
 
   ratelimit = new Ratelimit({
     redis: Redis.fromEnv(),
-    limiter: Ratelimit.slidingWindow(100, "40s"),
+    limiter: Ratelimit.slidingWindow(70, "1m"),
   });
 } catch (err) {
   console.warn("[Upstash] Not configured — using no-op rate limiter for development.");
