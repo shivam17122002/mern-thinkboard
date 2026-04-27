@@ -51,19 +51,18 @@ MERN-THINKBOARD/
 │   ├── .env                       # Environment variables
 │   └── package.json
 ├── frontend/
-│   └── UI/
-│       ├── src/
-│       │   ├── App.jsx
-│       │   ├── pages/
-│       │   │   ├── Home.jsx
-│       │   │   ├── Create.jsx
-│       │   │   └── NoteDetailed.jsx
-│       │   └── components/
-│       │       ├── Navbar.jsx
-│       │       ├── NoteCard.jsx
-│       │       ├── NotesNotFound.jsx
-│       │       └── RateLimitedUi.jsx
-│       └── package.json
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Create.jsx
+│   │   │   └── NoteDetailed.jsx
+│   │   └── components/
+│   │       ├── Navbar.jsx
+│   │       ├── NoteCard.jsx
+│   │       ├── NotesNotFound.jsx
+│   │       └── RateLimitedUi.jsx
+│   └── package.json
 ├── render.yaml                    # Render deployment config
 └── package.json                   # Root package.json
 
@@ -110,7 +109,7 @@ Run the entire project in development mode:
 npm run dev --prefix backend
 
 # Terminal 2: Frontend
-npm run dev --prefix frontend/UI
+npm run dev --prefix frontend
 ```
 
 - Backend: http://localhost:5001
@@ -172,7 +171,7 @@ Your app will be live at: `https://your-app-name.onrender.com`
 ## ⚠️ Important Notes
 
 - **Never commit `.env` file** - Add it to `.gitignore`
-- **Rate Limiting**: Backend enforces 50 requests per 20 seconds
+- **Rate Limiting**: Backend enforces the limit configured in `backend/src/config/upstash.js`
 - **CORS**: In production, only serves the built frontend
 - **Free Tier**: Render's free tier may have limitations; upgrade for production apps
 
@@ -190,7 +189,7 @@ Your app will be live at: `https://your-app-name.onrender.com`
 |-------|----------|
 | MongoDB connection fails | Check `MONGO_URI` and whitelist IP on MongoDB Atlas |
 | Rate limiter not working | Verify Upstash credentials are set |
-| Frontend not loading | Run `npm run build --prefix frontend/UI` |
+| Frontend not loading | Run `npm run build --prefix frontend` |
 | Build fails on Render | Check logs in Render dashboard |
 
 ## 📄 License

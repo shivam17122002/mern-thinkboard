@@ -36,13 +36,13 @@ if (process.env.NODE_ENV !== "production") {
 app.use("/api/notes", notesRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(
-    express.static(path.join(__dirname, "../../frontend/UI/dist"))
+    express.static(path.join(__dirname, "../../frontend/dist"))
   );
 
 
   app.get(/.*/, (req, res) => {
     res.sendFile(
-      path.join(__dirname, "../../frontend/UI/dist/index.html")
+      path.join(__dirname, "../../frontend/dist/index.html")
     );
   });
 }
