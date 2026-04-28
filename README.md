@@ -1,205 +1,253 @@
 # MERN ThinkBoard
 
-A full-stack note-taking application built with **MongoDB, Express, React, and Node.js (MERN)** stack, featuring rate limiting with Upstash Redis.
+ThinkBoard is a full-stack note-taking app built with the MERN stack. It lets users create, read, update, and delete notes from a React frontend backed by an Express and MongoDB API. The frontend also uses Clerk for sign-in, sign-out, and showing the signed-in user's profile image, name, and email in the navbar.
 
-## 📋 Features
+## Features
 
-- ✅ Create, read, update, and delete notes
-- ✅ Rate limiting to prevent abuse (50 requests per 20 seconds)
-- ✅ Responsive design with Tailwind CSS
-- ✅ Production-ready deployment configuration
-- ✅ RESTful API backend
-- ✅ Modern React frontend with Vite
+- Create, view, edit, and delete notes
+- Clerk authentication UI on the frontend
+- Signed-in user profile display in the navbar
+- MongoDB storage with Mongoose models
+- Express REST API for notes
+- Upstash Redis rate limiting
+- React 19 frontend built with Vite
+- Tailwind CSS and DaisyUI styling
+- Toast notifications with React Hot Toast
+- Render-ready production setup
 
-## 🛠️ Tech Stack
-
-### Backend
-- **Node.js** - JavaScript runtime
-- **Express** - Web framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - MongoDB object modeling
-- **Upstash Redis** - Rate limiting
-- **CORS** - Cross-origin resource sharing
+## Tech Stack
 
 ### Frontend
-- **React 19** - UI library
-- **Vite** - Build tool
-- **Tailwind CSS** - Styling
-- **DaisyUI** - UI components
-- **Axios** - HTTP client
-- **React Router** - Client-side routing
-- **React Hot Toast** - Notifications
 
-## 📁 Project Structure
+- React 19
+- Vite
+- React Router
+- Clerk React
+- Axios
+- Tailwind CSS
+- DaisyUI
+- Lucide React
+- React Hot Toast
 
-```
-MERN-THINKBOARD/
+### Backend
+
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- Upstash Redis
+- CORS
+- dotenv
+
+## Project Structure
+
+```txt
+mern-thinkboard/
 ├── backend/
 │   ├── src/
-│   │   ├── server.js              # Main server file
 │   │   ├── config/
-│   │   │   ├── db.js              # MongoDB connection
-│   │   │   └── upstash.js         # Redis rate limiter
+│   │   │   ├── db.js
+│   │   │   └── upstash.js
 │   │   ├── controllers/
 │   │   │   └── notesControllers.js
+│   │   ├── middleware/
+│   │   │   └── rateLimiter.js
 │   │   ├── models/
 │   │   │   └── notesModels.js
 │   │   ├── routes/
 │   │   │   └── notesRoutes.js
-│   │   └── middleware/
-│   │       └── rateLimiter.js
-│   ├── .env                       # Environment variables
+│   │   └── server.js
+│   ├── .env
 │   └── package.json
 ├── frontend/
 │   ├── src/
-│   │   ├── App.jsx
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── NoteCard.jsx
+│   │   │   ├── NotesNotFound.jsx
+│   │   │   └── RateLimitedUi.jsx
 │   │   ├── pages/
-│   │   │   ├── Home.jsx
 │   │   │   ├── Create.jsx
+│   │   │   ├── Home.jsx
 │   │   │   └── NoteDetailed.jsx
-│   │   └── components/
-│   │       ├── Navbar.jsx
-│   │       ├── NoteCard.jsx
-│   │       ├── NotesNotFound.jsx
-│   │       └── RateLimitedUi.jsx
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .env
 │   └── package.json
-├── render.yaml                    # Render deployment config
-└── package.json                   # Root package.json
-
+├── render.yaml
+├── package.json
+└── README.md
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js (v16+)
-- MongoDB (local or MongoDB Atlas)
-- Upstash Redis account (optional, for production)
+
+- Node.js 18 or newer
+- MongoDB Atlas database or local MongoDB instance
+- Upstash Redis database for rate limiting
+- Clerk application for frontend authentication
 
 ### Installation
 
-1. **Clone the repository**
+Clone the project and install dependencies:
+
 ```bash
 git clone https://github.com/shivam17122002/mern-thinkboard.git
-cd MERN-THINKBOARD
-```
-
-2. **Install dependencies**
-```bash
+cd mern-thinkboard
 npm install
+npm install --prefix backend
+npm install --prefix frontend
 ```
 
-3. **Set up environment variables**
+## Environment Variables
 
-Create a `.env` file in the `backend/` directory:
+Create `backend/.env`:
 
 ```env
 PORT=5001
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/mern-thinkboard
-UPSTASH_REDIS_REST_URL=https://your-instance.upstash.io
-UPSTASH_REDIS_REST_TOKEN=your-token-here
+MONGO_URI=your_mongodb_connection_string
+UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
 NODE_ENV=development
 ```
 
-### Development
+Create `frontend/.env`:
 
-Run the entire project in development mode:
+```env
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+```
+
+Do not commit `.env` files. Keep real database, Redis, and Clerk credentials private.
+
+## Development
+
+Run the backend:
 
 ```bash
-# Terminal 1: Backend
 npm run dev --prefix backend
+```
 
-# Terminal 2: Frontend
+Run the frontend in another terminal:
+
+```bash
 npm run dev --prefix frontend
 ```
 
-- Backend: http://localhost:5001
-- Frontend: http://localhost:5173
+Default local URLs:
 
-### Production Build
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5001`
+- Notes API: `http://localhost:5001/api/notes`
+
+## Production Build
+
+From the project root:
 
 ```bash
 npm run build
 ```
 
-This builds the frontend and prepares for deployment.
+This installs backend and frontend dependencies, then builds the frontend into `frontend/dist`.
 
-### Start Production Server
+Start the production server:
 
 ```bash
 npm start
 ```
 
-## 📝 API Endpoints
+In production, the Express backend serves the built frontend from `frontend/dist`.
 
-### Notes API
+## API Endpoints
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
+| --- | --- | --- |
 | GET | `/api/notes` | Get all notes |
-| POST | `/api/notes` | Create a new note |
-| GET | `/api/notes/:id` | Get a specific note |
+| GET | `/api/notes/:id` | Get one note by ID |
+| POST | `/api/notes` | Create a note |
 | PUT | `/api/notes/:id` | Update a note |
 | DELETE | `/api/notes/:id` | Delete a note |
 
-## 🌐 Deployment on Render
+Example note body:
 
-### Step 1: Prepare MongoDB
-1. Go to [mongodb.com/cloud/atlas](https://mongodb.com/cloud/atlas)
-2. Create a free cluster
-3. Get your connection string
+```json
+{
+  "title": "My note title",
+  "content": "My note content"
+}
+```
 
-### Step 2: Set up Upstash (Optional)
-1. Visit [upstash.com](https://upstash.com)
-2. Create a Redis database
-3. Copy REST URL and token
+## Clerk Authentication
 
-### Step 3: Deploy on Render
-1. Push your code to GitHub
-2. Go to [render.com](https://render.com)
-3. Create a new Web Service
-4. Connect your GitHub repository
-5. Add environment variables:
-   - `MONGO_URI` - MongoDB Atlas connection
-   - `UPSTASH_REDIS_REST_URL` - Upstash Redis URL
-   - `UPSTASH_REDIS_REST_TOKEN` - Upstash Redis Token
-   - `NODE_ENV` - `production`
+The frontend uses `@clerk/react` in `frontend/src/main.jsx` and `frontend/src/components/Navbar.jsx`.
 
-6. Deploy!
+Current Clerk behavior:
 
-Your app will be live at: `https://your-app-name.onrender.com`
+- Shows a login button when signed out
+- Shows profile image, name, email, and logout button when signed in
+- Uses `VITE_CLERK_PUBLISHABLE_KEY` from `frontend/.env`
 
-## ⚠️ Important Notes
+Important: Clerk currently controls frontend sign-in UI. The existing backend notes API is still public and stores notes globally. To make notes private per user, add Clerk token verification on the backend and store the Clerk `userId` on each note.
 
-- **Never commit `.env` file** - Add it to `.gitignore`
-- **Rate Limiting**: Backend enforces the limit configured in `backend/src/config/upstash.js`
-- **CORS**: In production, only serves the built frontend
-- **Free Tier**: Render's free tier may have limitations; upgrade for production apps
+Recommended per-user note model change:
 
-## 📖 Documentation
+```js
+{
+  title: String,
+  content: String,
+  userId: String
+}
+```
 
-- [MongoDB Docs](https://docs.mongodb.com/)
-- [Express Docs](https://expressjs.com/)
-- [React Docs](https://react.dev/)
-- [Vite Docs](https://vite.dev/)
-- [Render Docs](https://render.com/docs/)
+Then filter note queries by the authenticated Clerk user ID:
 
-## 🐛 Troubleshooting
+```js
+Notes.find({ userId: req.auth.userId });
+```
 
-| Issue | Solution |
-|-------|----------|
-| MongoDB connection fails | Check `MONGO_URI` and whitelist IP on MongoDB Atlas |
-| Rate limiter not working | Verify Upstash credentials are set |
-| Frontend not loading | Run `npm run build --prefix frontend` |
-| Build fails on Render | Check logs in Render dashboard |
+## Rate Limiting
 
-## 📄 License
+The backend uses Upstash Redis through `backend/src/middleware/rateLimiter.js`. If Redis credentials are missing or invalid, API requests may fail depending on the middleware behavior.
+
+## Deployment
+
+This project includes `render.yaml` for Render deployment.
+
+Before deploying:
+
+- Push the project to GitHub
+- Create a MongoDB Atlas database
+- Create an Upstash Redis database
+- Create a Clerk application
+- Add the required environment variables in Render
+- Set `NODE_ENV=production`
+
+Required Render environment variables:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NODE_ENV=production
+```
+
+## Troubleshooting
+
+| Issue | Fix |
+| --- | --- |
+| Clerk login does not load | Check `frontend/.env` and make sure `VITE_CLERK_PUBLISHABLE_KEY` is set |
+| `SignedIn` or `SignedOut` export error | Use Clerk's `Show` component with this installed Clerk version |
+| MongoDB connection fails | Check `MONGO_URI` and MongoDB Atlas network access |
+| Too many requests error | Wait briefly or check Upstash rate limit settings |
+| Frontend cannot reach backend | Make sure backend is running on port `5001` |
+| Production page refresh fails | Confirm Express is serving `frontend/dist/index.html` in production |
+
+## License
 
 ISC
 
-## 👤 Author
+## Author
 
 Created by [Shivam Pandey](https://github.com/shivam17122002)
-
----
-
-**Ready to deploy? Follow the [Deployment on Render](#-deployment-on-render) section above!** 🚀

@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/shivam17122002/mern-thinkboard/issues"
   },
-  "homepage": "https://github.com/shivam17122002/mern-thinkboard#readme"
+  "homepage": "https://github.com/shivam17122002/mern-thinkboard#readme",
+  "dependencies": {
+    "@clerk/clerk-react": "^5.61.6"
+  }
 }
